@@ -3,60 +3,66 @@
 %========================
 \documentclass[10pt,twocolumn]{article}
 
-% --- Encoding & fonts (safe across engines) ---
+% ---- Encoding & fonts ----
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}     % harmless for LuaLaTeX/XeLaTeX
+\usepackage[utf8]{inputenc}
 \usepackage{lmodern}
+\usepackage{microtype}           % better typography
 
-\usepackage{makecell}           % in preamble for header wrapping
-\usepackage{booktabs}           % for nicer rules
-\usepackage{placeins} % no [section]
-\usepackage{stfloats} % or \usepackage{dblfloatfix}
-\usepackage{cuted}   % provides the strip environment
-
-
-% --- Page geometry & spacing ---
+% ---- Page geometry & columns ----
 \usepackage[a4paper,margin=1in]{geometry}
-\setlength{\columnsep}{0.25in}  % space between columns
+\setlength{\columnsep}{0.25in}   % space between columns
 
-% --- Math & symbols ---
-\usepackage{amsmath, amssymb, amsthm, mathtools}
+% ---- Math & symbols ----
+\usepackage{mathtools}           % loads amsmath
+\usepackage{amssymb,amsthm}
 \numberwithin{equation}{section} % equations numbered per section
 
-% --- Figures & tables ---
+% ---- Figures & graphics ----
 \usepackage{graphicx}
 \graphicspath{{figures/}}        % images in ./figures
-\usepackage{booktabs}            % nice tables
-\usepackage{siunitx}             % for numbers/units in tables
-\sisetup{detect-all}
-\usepackage{subcaption}          % subfigures
-\usepackage[labelfont=bf]{caption}
 
-% --- Links ---
-\usepackage[hidelinks]{hyperref}
-
-% --- Bibliography (natbib for arXiv friendliness) ---
-\usepackage[numbers,sort&compress]{natbib}
-
-% --- Misc helpers ---
-\usepackage{xifthen}             % for conditional figure placeholders
-\usepackage{microtype}           % better typography
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
-
-\usepackage{longtable}
+% ---- Tables ----
+\usepackage{booktabs}            % nice rules
 \usepackage{array}
-\usepackage[table]{xcolor}       % shading
+\usepackage{makecell}            % header wrapping / multi-line cells
+\usepackage[table]{xcolor}       % table shading
+\usepackage{siunitx}
+\sisetup{detect-all}
 
-\usepackage{supertabular}        % multipage tables that work in twocolumn
+% ---- Captions & subfigures (order matters: caption BEFORE subcaption) ----
+\usepackage[labelfont=bf]{caption}
+\usepackage{subcaption}
+
+% ---- Floats ----
+\usepackage{stfloats}            % allow bottom placement of double-column floats
+\usepackage{cuted}               % 'strip' environment for full-width in two columns
+\usepackage{placeins}            % \FloatBarrier
+
+% ---- Links & bibliography ----
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref} % load hyperref near-last
+
+% ---- Misc helpers ----
+\usepackage{xifthen}             % for conditional figure placeholders
+\usepackage[normalem]{ulem}      % \uline etc., keep \emph behavior
+\usepackage{supertabular}        % multipage tables in twocolumn
+
+% ---- Macros ----
+\newcommand{\Stirling}[2]{\left\{ {#1 \atop #2} \right\}} % Stirling numbers of the second kind
+% Accidentals in running text
+\newcommand{\nflat}{\ensuremath{\flat}}
+\newcommand{\nsharp}{\ensuremath{\sharp}}
+\newcommand{\nnatural}{\ensuremath{\natural}}
+
+\date{\today}
 
 % --- Title/authors ---
-\title{Uniqueness on a continuum: Quantifying tonal ambiguity using information theory}
-\author{Seltenreich, Michael$^{1}$\\[4pt]
-\small $^{1}$Anthropic Pbc\\
+\title{Uniqueness on a Continuum: Quantifying Tonal Ambiguity Using Information Theory}
+\author{Michael Seltenreich$^{1}$\\[4pt]
+\small $^{1}$Anthropic PBC\\
 \small \texttt{michaelsel@anthropic.com}
 }
-\date{\today}
 
 \begin{document}
     \twocolumn[
@@ -107,11 +113,11 @@
         \label{fig:shapes}
     \end{figure}
 
-    This principle extends directly to musical scales.
+    The same structural idea carries over to musical scales.
     For example, the major scale exhibits uniqueness, which allows us to identify C–D–E–F–G–A–B unambiguously as the key of C (or one of its modes) rather than as any of its 11 other transpositions; its internal structure makes its orientation clearly discernible.
     By contrast, scales that lack uniqueness resist such identification.
-    Consider the whole-tone scale: C–D–E–F\text{$\sharp$}–G\text{$\sharp$}–B\text{$\flat$} cannot be definitively labeled as a "C whole-tone scale" or a "D whole-tone scale," since its uniform structure renders every pitch an equally plausible tonic.
-    Consequently, the very expression "C whole-tone scale," implying a privileged tonal center, is somewhat misleading.
+    Consider the whole-tone scale: C–D–E–F$\sharp$–G$\sharp$–B$\flat$ cannot be definitively labeled as a "C whole-tone scale" or a "D whole-tone scale," since its uniform structure renders every pitch an equally plausible tonic.
+    Consequently, the very label “C whole‑tone scale,” which implies a privileged tonic, is somewhat misleading.
     In this respect, the whole-tone scale parallels the uniform pentagon in \autoref{fig:shapes}, as both structures lack uniqueness.
 
     \citet{Balzano1982} argues that uniqueness is a necessary condition for the emergence of tonality, since the assignment of hierarchical roles depends on an unambiguous relationship among a scale's constituent notes.
@@ -122,8 +128,7 @@
     In other words, they admit strictly more than one tonal interpretation, but strictly fewer than twelve \citep{Messiaen1944}.
     This unique position allows them to support both chromaticism and modulation, albeit within clear structural constraints.
 
-    The dichotomy implied by the uniqueness property divides scales into two categories: those that possess it and those that do not.
-    While this distinction is useful for a basic understanding of musical organization, it provides limited insight beyond the binary classification.
+    Uniqueness splits scales into two classes—those that have it and those that do not—but it offers little guidance about \emph{how strongly} a set points to a tonic.
     Modes of limited transposition, for instance, lack a clear tonality yet still manifest a degree of hierarchical structure.
     At the most fundamental level, this hierarchy distinguishes between notes that belong to the scale and those that do not (chromatic notes).
     For such scales, uniqueness is by definition absent and thus becomes irrelevant.
@@ -137,8 +142,8 @@
 
     For instance, although the major scale possesses uniqueness, the tonal center of Twinkle, Twinkle, Little Star cannot be unambiguously determined.
     Namely, the pitches of the first measure (C-G-A-G) can be interpreted as belonging to as many as 6 major tonalities (see candidate tonalities indicated under passage in \autoref{fig:twinkle}).
-    As the melody unfolds, the introduction of A\text{$\natural$} rules out both E\text{$\flat$} major and A\text{$\flat$} major; the subsequent F\text{$\natural$} excludes G major; and the later E\text{$\natural$} eliminates B\text{$\flat$} major.
-    Ultimately, the melody narrows to interpretations in either C or F major, since the absence of a decisive B\text{$\natural$} or B\text{$\flat$} leaves the final tonic (formally) ambiguous.
+    As the melody unfolds, the introduction of A$\natural$ rules out both E$\flat$ major and A$\flat$ major; the subsequent F$\natural$ excludes G major; and the later E$\natural$ eliminates B$\flat$ major.
+    Ultimately, the melody narrows to interpretations in either C or F major, since the absence of a decisive B$\natural$ or B$\flat$ leaves the final tonic (formally) ambiguous.
 
     Of course, the process through which listeners determine a passage's tonic is complex and relies on many features beyond a mere tally of pitches. For a thorough treatment, see \citet{LerdahlJackendoff1983} along with related work \citep{BharuchaKrumhansl1983,Lerdahl2004,Patel1998,Thompson1997}.
     The preceding example was intended to illustrate the issue at hand, not to suggest that the tonic of Twinkle, Twinkle, Little Star is unknowable or mysterious.
@@ -156,14 +161,12 @@
             \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
             Full-width placeholder for \texttt{twinkle.png}}}
         }
-        \caption{Twinkle Twinkle Little Star with possible tonal interpretation marked below.}
-        \label{fig:twinkle}
+        \caption{\emph{Twinkle, Twinkle, Little Star} with possible tonal interpretations marked below.}        \label{fig:twinkle}
     \end{figure*}
 
-    In fact, at least in western music, tonal ambiguity often lies at the base of musical expression and as such it underlies an important aspect of the artform In fact, at least in western music, tonal ambiguity often lies at the base of musical expression and as such it underlies an important aspect of the artform \citep{NodenSkinner1984, Richards2017, Smith1992, Temperley2007, Uchida1990}.
+    In fact, at least in Western music, tonal ambiguity often lies at the base of musical expression and as such it underlies an important aspect of the art form \citep{NodenSkinner1984, Richards2017, Smith1992, Temperley2007, Uchida1990}.
     Building on the preceding discussion of tonal ambiguity, the widely prevalent anhemitonic pentatonic set (02479) is used here to provide a more concrete example of the challenge at hand.
-    Specifically, it illustrates how our ability to determine a scale's transposition is highly context‑dependent.
-    For didactic reasons, I chose to use the pentatonic set.
+    It illustrates how our ability to determine a scale’s transposition is highly context‑dependent; the pentatonic set makes this especially transparent.
     In the pentatonic set, the appearance of any note shrinks the space of possible transpositions to one of five possibilities.
     This is because any given note may serve as one of the five scale degrees and, correspondingly, as the tonic of each of five tonalities.
     \autoref{fig:necklaces}A illustrates this reduction: when a single pitch is specified (marked as a white node), only five possible transpositions of the anhemitonic pentatonic set remain, here represented in set‑theoretical notation and as pentagons (see figure caption for details).
@@ -190,7 +193,11 @@
     Other intervals, such as the interval 05, leave as many as four out of the five candidate transpositions.
     For instance, for C and F, the set can be
 
-    B\text{$\flat$}-\textbf{\underline{C}}-D-\textbf{\underline{F}}-G,     E\text{$\flat$}-\textbf{\underline{F}}-G-B\text{$\flat$}-\textbf{\underline{C}},     \textbf{\underline{F}}-G-A-\textbf{\underline{C}}-D,     and     A\text{$\flat$}-B\text{$\flat$}-\textbf{\underline{C}}-E\text{$\flat$}-\textbf{\underline{F}}.
+    B$\flat$-\textbf{\underline{C}}-D-\textbf{\underline{F}}-G,\qquad
+    E$\flat$-\textbf{\underline{F}}-G-B$\flat$-\textbf{\underline{C}},\qquad
+    \textbf{\underline{F}}-G-A-\textbf{\underline{C}}-D,\qquad
+    and\qquad
+    A$\flat$-B$\flat$-\textbf{\underline{C}}-E$\flat$-\textbf{\underline{F}}.
 
     These observations suggest that to capture the tonal potential not only of modes of limited transposition but also of scales that formally possess uniqueness, we require a measure that goes beyond a binary classification.
     Such a measure must account for the fact that music unfolds sequentially and that tonal clarity often emerges gradually.
@@ -274,7 +281,8 @@
         \item \textbf{Fix the universe.} Choose $c$ (e.g., $12$) and a set $S$ (e.g., major, pentatonic, octatonic).
         \item \textbf{Precompute coverage.} For every $\tau\in \mathbb{Z}_c$, form $\tau{+}S$; record which combinations $X$ (for each $k$) occur in each transposition.
         \item \textbf{For each $k$:} For all $X{\subseteq}S$ with $|X|{=}k$, compute $t_S(X)$ by counting the number of $\tau$ with $X\subseteq \tau{+}S$, then $I_S(X)=\log_2(c/t_S(X))$ and average to get $\mathbb{E}_{\Omega_k(S)}[I]$.
-        \item \textbf{Aggregate.} Combine across cardinalities with the binomial weights to get $\mathbb{E}_S[I]$ and report $\bar{t}(S)=c/2^{\mathbb{E}_S[I]}$. For a time‑aware view at length $n$, weight by $P_k$ instead.
+        \item \textbf{Aggregate.} Combine across cardinalities with the binomial weights to get $\mathbb{E}_S[I]$ and report $\bar{t}(S)=c/2^{\mathbb{E}_S[I]}$.
+        \item For a time‑aware view at length $n$, weight by $P_k$ instead.
     \end{enumerate}
 
     \subsection*{Diagnostic combinations and cross‑set use}
@@ -319,7 +327,7 @@
     \subsection{A "bit" about Information Theory}
 
     As argued above, the dichotomous framing of uniqueness fails to capture the gradient nature of tonal ambiguity, highlighting the need for a more continuous metric.
-    Information Theory, a subdiscipline of data science concerned with the quantification of information\citep{shannon1948}, offers a promising framework for such a measure.
+    Information Theory, a subdiscipline of data science concerned with the quantification of information \citep{shannon1948}, offers a promising framework for such a measure.
     At its core, the principle is simple: the rarer an event, the more information it provides.
 
     A familiar analogy is the word‑guessing game hangman, where the goal is to identify a hidden word by guessing letters one at a time.
@@ -329,7 +337,7 @@
     The same logic applies to tonality.
     Here, instead of uncovering a hidden word, we seek to identify the tonic of a passage; and instead of adding letters, we add notes.
     Suppose we listen in the context of the major scale.
-    Hearing the note F immediately reduces the candidate tonalities from twelve to the seven major keys that contain F (F, G\text{$\flat$}, A\text{$\flat$}, B\text{$\flat$}, C, D\text{$\flat$}, and E\text{$\flat$}).
+    Hearing the note F immediately reduces the candidate tonalities from twelve to the seven major keys that contain F (F, G$\flat$, A$\flat$, B$\flat$, C, D$\flat$, and E$\flat$).
     In doing so, it excludes G, A, B, D, and E major.
     Adding a second pitch narrows the field further: for instance, the co‑occurrence of F and E restricts the possibilities to just two scales—C major and F major—since these are the only major keys containing both notes.
 
@@ -361,9 +369,12 @@
     To address this more effectively, we turn to Information Theory, which allows us to quantify the information contributed by each combination.
 
     In the diatonic set, two‑note combinations vary widely in the information they provide.
-    For example, the combination 01 (a minor second) reduces the space of possible transpositions from 12 to just 2.
-    If 0 corresponds to C, then 01 (C–D\text{$\flat$}) can only occur in D\text{$\flat$} or A\text{$\flat$} major, yielding approximately 2.58 bits of information.
-    By contrast, the combination 05 (C–F) appears in six transpositions (C, D\text{$\flat$}, E\text{$\flat$}, F, A\text{$\flat$}, and B\text{$\flat$} major), providing only 1 bit of information.
+    \paragraph{Example.}
+    In the diatonic set with $c=12$, the dyad 05 (C–F) leaves the six candidate tonics
+    $\{C,D\flat,E\flat,F,A\flat,B\flat\}$, so $t_S(X)=6$ and $I_S(X)=\log_2(12/6)=1$ bit.
+    By contrast, the dyad 01 leaves $t_S(X)=2$ (e.g., $D\flat$ or $A\flat$ if $0{=}$C), i.e., $\approx 2.58$ bits.
+
+
 
     Formally, the information gained from a given note combination can be calculated as:
 
@@ -372,7 +383,11 @@
         \label{eq:derivingSelfInformation}
     \end{equation}
 
-    where $c$ is the size of the chromatic space (12 in 12‑EDO) and $t$ the number of candidate transpositions remaining.
+    Let $T$ be the (unknown) tonic, uniform on $c$ pitch classes, and let $X$ be the observed combination.
+    Then $H(T)=\log_2 c$, while the posterior $T\!\mid\!X$ is uniform on the surviving $t_S(X)$ tonics, so $H(T\!\mid\!X)=\log_2 t_S(X)$.
+    Hence, the information gained by $X$ is $I(T;X)=H(T)-H(T\!\mid\!X)=\log_2\!\bigl(c/t_S(X)\bigr)$, which is Eq.~\ref{eq:derivingSelfInformation}.
+
+    Put simply, $c$ is the size of the chromatic space (12 in 12‑EDO) and $t$ the number of candidate \emph{tonics} (i.e., tonic pitch classes) remaining.
 
     Thus, 01 yields approximately 2.58 bits, while 05 yields 1 bit.
     Conversely, the number of remaining transpositions can be recovered from bits of information as:
@@ -386,7 +401,7 @@
 
     \input{tables/tab-diatonic-2note}
 
-    We can refer to the number of candidate transpositions—or possible tonal interpretations—remaining after a given note combination as the extent of tonal ambiguity.
+    We refer to the number of candidate \emph{tonics}—i.e., pitch classes that can serve as the tonic under set $S$ given the observed notes—as the extent of tonal ambiguity.
     However, it is important to recall that uniqueness is a property of the set as a whole, not of specific subsets.
     Thus, while computing tonal ambiguity for particular note combinations is useful, it does not by itself capture the overall tonal clarity captured by the set.
     To do so, we must weigh the high information gained from rare combinations against their low probability of occurring.
@@ -396,7 +411,7 @@
     Similarly, in a musical context, highly diagnostic note combinations (such as rare intervals) may drastically narrow the set of possibilities, but their infrequent occurrence means they contribute less to the average experience of tonal induction.
     Thus, we need a method that balances the information each combination provides with the likelihood of its appearance.
 
-    For this, we turn to \textit{entropy}, a measure introduced by \citet{shannon1948} that calculates the average amount of information contributed by a distribution of events.
+    For this, we turn to the average information (often termed “entropy” in this paper for brevity), following \citet{shannon1948}.
     Formally:
 
     \begin{equation}
@@ -424,7 +439,7 @@
     This result indicates that, on average, a two‑note combination reduces the space of possible transpositions by a factor of $2^{1.55} \approx 2.93$, leaving about $4$ viable options out of $12$.
 
     Interestingly, the comparison between the number of instances of each interval and the number of candidate transpositions reveals a striking pattern.
-    In most cases, these values coincide; the exception is IC6, which occurs once (e.g., 5–11) but still allows two candidate transpositions (C major or G\text{$\flat$} major if 0 = C).
+    In most cases, these values coincide; the exception is IC6, which occurs once (e.g., 5–11) but still allows two candidate transpositions (C major or G$\flat$ major if 0 = C).
     This discrepancy reflects the special case of symmetrical divisions of the octave (e.g., 06, 048, 0369, 02468T), which yield rotational symmetries and underpin modes of limited transposition.
     Thus, entropy effectively captures the tonal ambiguity arising from such symmetries.
 
@@ -439,9 +454,8 @@
     As Table~\ref{tab:trichords} shows, certain trichords alone are sufficient to uniquely identify the scale's transposition.
     We term these \textit{diagnostic combinations}, as they effectively diagnose the set's identity from a subset.
     In the diatonic set, diagnostic trichords include 016, 026, 036, 046, and 056—each capable of inferring the remaining notes.
-    Perhaps unsurprisingly, such combinations frequently appear in cadential contexts (see \autoref{fig:cadential}), with the dominant seventh chord itself being a diagnostic trichord.
-    Indeed, in this set, any 3‑note combination containing pitch‑class 6 functions diagnostically.
-
+    Perhaps unsurprisingly, such combinations frequently appear in cadential contexts (see \autoref{fig:cadential}), with the dominant seventh chord containing diagnostic trichords.
+    Indeed, in this set, any 3‑note combination containing IC\,6 (a tritone) is a diagnostic combination.
     \begin{figure}[htbp]
         \centering
         \IfFileExists{figures/cadential.png}{%
@@ -451,7 +465,7 @@
             Placeholder for \texttt{figures/example-figure.pdf}\\[3pt]
             (replace with \texttt{\textbackslash includegraphics})}}
         }
-        \caption{some diagnostic trichords of the diatonic set in cadential context.}
+        \caption{Diagnostic trichords of the diatonic set in cadential contexts.}
         \label{fig:cadential}
     \end{figure}
 
@@ -460,8 +474,8 @@
     For instance, intervals 01, 03, 04, and 06 all provide more information than the trichord 027.
     This variability highlights the need to assess entire combination spaces rather than focusing on isolated cases.
 
-    By calculating entropy across all dyads ($\Omega_2$), we find that a random 2‑note combination provides an average of about 1.54 bits of information, leaving roughly 4.1 possible transpositions.
-    For trichords ($\Omega_3$), the average rises to about 2.16 bits, leaving about 2.7 transpositions.
+    By calculating entropy across all dyads ($\Omega_2$), we find that a random 2‑note combination provides an average of about 1.54 bits of information, leaving roughly 4.1 candidate tonics.
+    For trichords ($\Omega_3$), the average rises to about 2.16 bits, leaving about 2.7 candidate tonics.
     Thus, while trichords are generally more informative, the distributions overlap enough to warrant comparison across cardinalities.
 
     This motivates the next step: synthesizing a value for the set as a whole.
@@ -473,13 +487,13 @@
     We therefore calculate the weighted sum of entropies as follows:
 
     \begin{align}
-        E[I]_{\text{diatonic}} &= \sum_{c=1}^{7} \frac{\binom{7}{c}}{127} \; E_{\Omega_c}[I]
+        E[I]_{\text{diatonic}} &= \sum_{k=1}^{7} \frac{\binom{7}{k}}{127} \; E_{\Omega_k}[I]
         \label{eq:diatonic-avg} \\[4pt]
         \intertext{Substituting the values from Table~\ref{tab:entropy-diatonic}:}
         E[I]_{\text{diatonic}} \;\approx\; &
-        \underbrace{\left( \frac{7}{127} \cdot 0.78 \right)}_{\substack{c=1:\\ p(c)\cdot E_{\text{set}~\Omega_1}}} +
-        \underbrace{\left( \frac{21}{127} \cdot 1.54 \right)}_{\substack{c=2:\\ p(c)\cdot E_{\text{set}~\Omega_2}}} +
-        \underbrace{\left( \frac{35}{127} \cdot 2.16 \right)}_{\substack{\dots:\\ p(c)\cdot E_{\text{set}~\Omega_3}}}
+        \underbrace{\left( \frac{7}{127} \cdot 0.78 \right)}_{\substack{k=1:\\ \text{weight}\cdot E_{\Omega_1}}} +
+        \underbrace{\left( \frac{21}{127} \cdot 1.54 \right)}_{\substack{k=2:\\ \text{weight}\cdot E_{\Omega_2}}} +
+        \underbrace{\left( \frac{35}{127} \cdot 2.16 \right)}_{\substack{k=3:\\ \text{weight}\cdot E_{\Omega_3}}}
         \notag \\[4pt]
         &+ \left( \frac{35}{127} \cdot 2.61 \right) +
         \left( \frac{21}{127} \cdot 2.98 \right)
@@ -492,7 +506,12 @@
 
     \input{tables/tab-entropy-diatonic}
 
-    This corresponds to about 2.42 candidate transpositions, meaning that a random note combination from the diatonic set, on average, narrows the field from twelve possible tonalities to fewer than three.
+    This corresponds to about $2.42$ candidate tonal interpretations on average.
+    For brevity, we call this value the \emph{Tonal Ambiguity Index} (TAI) of the set:
+    \[
+        \mathrm{TAI}(S) \;=\; \bar{t}(S) \;=\; \frac{c}{2^{\mathbb{E}_S[I]}}.
+    \]
+    Smaller TAI indicates less ambiguity (fewer viable tonics); larger TAI indicates more ambiguity.
 
     Although the calculations rely on information theory, the intent of this framework is practical: to describe tonal ambiguity in terms accessible to musicians and theorists.
     Since raw values in bits may feel abstract, it is recommended to present ambiguity as the \textit{average number of possible tonal interpretations} (with conversion via Equation~\ref{eq:remaining_transpositions}).
@@ -504,7 +523,7 @@
     This measure enables direct comparison of scales in their capacity to induce tonality, both through analyses of note combinations at varying cardinalities and through set‑level evaluations.
     Table~\ref{tab:tonal-interpretations} presents ambiguity values (t) for several widely used scales, showing the number of possible tonal interpretations for note combinations ranging from one to seven notes, as well as the overall ambiguity of each set.
 
-    On average, the major scale exhibits the greatest tonal ambiguity, with t=2.42 possible interpretations.
+    On average, the major scale exhibits the greatest tonal ambiguity, with $\bar{t}\approx 2.42$ possible interpretations.
     This is followed by the pentatonic scale (t=2.29), the melodic minor (t=1.92), and the harmonic minor (t=1.87).
     Put differently, hearing a random combination of notes from the harmonic minor scale is more likely to allow its transposition to be identified unambiguously than a comparable combination drawn from the major scale.
 
@@ -541,6 +560,23 @@
     scales in ways that are both mathematically precise and musically meaningful.
 
     \input{tables/tab-scale-ambiguity}
+
+    \paragraph{Normalization across chromatic universes.}
+    For cross‑EDO comparisons (chromatic size $c$), we report a dimensionless pair:
+    \[
+        \mathrm{NMI}(S) \;=\; \frac{\mathbb{E}_S[I]}{\log_2 c} \quad \text{(normalized information; higher = less ambiguous)}
+    \]
+    and
+    \[
+        \mathrm{NA}(S) \;=\; 1 - \mathrm{NMI}(S) \;=\; \frac{\log_2 \bar{t}(S)}{\log_2 c} \quad \text{(normalized ambiguity; higher = more ambiguous)}.
+    \]
+    These relate to the raw ambiguity via
+    \[
+        \bar{t}(S) \;=\; c^{\,\mathrm{NA}(S)} \;=\; c^{\,1-\mathrm{NMI}(S)}, \qquad \mathrm{TAI}(S)=\bar{t}(S).
+    \]
+    In 12‑EDO, $\log_2 12 \approx 3.585$, so $\mathrm{NMI}\approx \mathbb{E}_S[I]/3.585$.
+
+
 
     \subsection{Allowing for time}
 
@@ -614,10 +650,10 @@
             \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
             Full-width placeholder for \texttt{transposition-probability.pdf}}}
         }
-        \caption{The number of tonal interpretation available in common scales as a function of the number of notes drawn from them at random.
-        The y axis represents the number of tonal interpretations available.
-        The x axis refers to the number of draws.
-        This values were computed using Equation~\ref{eq:Pk}.}
+        \caption{The number of tonal interpretations available in common scales as a function of the number of notes drawn from them at random.
+        The y‑axis represents the number of tonal interpretations available.
+        The x‑axis refers to the number of draws.
+        These values were computed using Equation~\ref{eq:Pk}.}
         \label{fig:wide}
     \end{figure*}
 
@@ -635,7 +671,7 @@
             \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
             Full-width placeholder for \texttt{transposition-time.pdf}}}
         }
-        \caption{All 5-note set in 12-EDO (twelve equal divisions of the octave) and the number of tonal interpretations they leave as a function of the number of notes drawn at random from the set.}
+        \caption{All 5‑note sets in 12-EDO (twelve equal divisions of the octave) and the number of tonal interpretations they leave as a function of the number of notes drawn at random from the set.}
         \label{fig:time}
     \end{figure*}
 
@@ -751,6 +787,14 @@
 
     \endgroup
 % ---- end squeeze ----
+
+    \paragraph{How to reproduce values in appendix}
+    For each set $S\subset\mathbb{Z}_c$ and cardinality $k$:
+    (1) enumerate all $k$-subsets $X\subseteq S$ (or group by isomorphism for dyads via the interval vector);
+    (2) compute $t_S(X)=|\{\tau : X\subseteq\tau{+}S\}|$;
+    (3) set $I_S(X)=\log_2(c/t_S(X))$ and average over $X$ to obtain $\mathbb{E}_{\Omega_k(S)}[I]$;
+    (4) aggregate across cardinalities with weights $\binom{|S|}{k}/(2^{|S|}-1)$ to get $\mathbb{E}_S[I]$ and report $\mathrm{TAI}(S)=c/2^{\mathbb{E}_S[I]}$.
+    For time‑aware results at length $n$, weight the cardinality‑specific expectations by $P_k$ from Eq.~\ref{eq:Pk}.
 
 
 
