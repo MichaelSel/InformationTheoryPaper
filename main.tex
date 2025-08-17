@@ -78,7 +78,7 @@
 
     \section{Introduction}\label{sec:intro}
 
-    Tonality lies at the base of many of the world's musical cultures and is fundamental to Arabic and Turkish maqamat \citep{Farraj2019,Signell2008}, Hindustani and Carnatic ragam \citep{Castellano1984}, and of course, much of Western music \citep{KrumhanslKeil1982}.
+    Tonality lies at the base of many of the world's musical cultures and is fundamental to Arabic and Turkish maqamat \citep{Farraj2019,Signell2008}, Hindustani and Carnatic ragas \citep{Castellano1984}, and of course, much of Western music \citep{KrumhanslKeil1982}.
     It can be broadly defined as the hierarchical organization of a scale's notes into distinct functional roles, with one note typically serving as the central "tonic" or "arrival point" and another as a contrasting "dominant" or "recitation" tone.
     \citet{Balzano1982} argues that as a prerequisite condition for the emergence of hierarchy between the members of a set of notes, the set has to possess a structural property called "uniqueness".
     This claim was recently supported by \citet{Pelofi2021} who demonstrated empirically that melodic statistical dependencies are more effectively learned in sets that exhibit uniqueness.
@@ -139,7 +139,7 @@
     Of course, the process through which listeners determine a passage's tonic is complex and relies on many features beyond a mere tally of pitches. For a thorough treatment, see \citet{LerdahlJackendoff1983} along with related work \citep{BharuchaKrumhansl1983,Lerdahl2004,Patel1998,Thompson1997}.
     The preceding example was intended to illustrate the issue at hand, not to suggest that the tonic of Twinkle, Twinkle, Little Star is unknowable or mysterious.
     In practice, listeners are generally able to infer the underlying scale constituents even when they are not explicitly stated.
-    Nonetheless, this passage underscores the principle that uniqueness need not be overtly expressed for a coherent tonal hierarchy to emerge.
+    Nonetheless, this passage underscores the principle that uniqueness need not be explicitly expressed for a coherent tonal hierarchy to emerge.
 
     Importantly, passages like this resemble those belonging to modes of limited transposition in that neither succeed in structurally identifying a tonic, at least not initially or explicitly.
     Yet, both serve to narrow the universe of candidate tonics from twelve down to a handful of remaining interpretations.
@@ -156,11 +156,10 @@
         \label{fig:twinkle}
     \end{figure*}
 
-    In fact, at least in western music, tonal ambiguity often lies at the base of musical expression and as such it underlies an important aspect of the artform (Noden-Skinner, 1984; Richards, 2017; Smith, 1992; Temperley, 2007; Uchida, 1990).
-
+    In fact, at least in western music, tonal ambiguity often lies at the base of musical expression and as such it underlies an important aspect of the artform In fact, at least in western music, tonal ambiguity often lies at the base of musical expression and as such it underlies an important aspect of the artform \citep{NodenSkinner1984, Richards2017, Smith1992, Temperley2007, Uchida1990}.
     Building on the preceding discussion of tonal ambiguity, the widely prevalent anhemitonic pentatonic set (02479) is used here to provide a more concrete example of the challenge at hand.
     Specifically, it illustrates how our ability to determine a scale's transposition is highly context‑dependent.
-    For didactic reasons, I chose to use the pentatonic.
+    For didactic reasons, I chose to use the pentatonic set.
     In the pentatonic set, the appearance of any note shrinks the space of possible transpositions to one of five possibilities.
     This is because any given note may serve as one of the five scale degrees and, correspondingly, as the tonic of each of five tonalities.
     \autoref{fig:necklaces}A illustrates this reduction: when a single pitch is specified (marked as a white node), only five possible transpositions of the anhemitonic pentatonic set remain, here represented in set‑theoretical notation and as pentagons (see figure caption for details).
@@ -284,7 +283,7 @@
         \label{eq:expected-info}
     \end{equation}
 
-    Where $p(x)$ is the probability of a certain interval class (or note-combination) $x$ occurring in the (diatonic or other) set, and $I[E]$ is the self-information of that note-combination.
+    Where $p(x)$ is the probability of a certain interval-class (or note-combination) $x$ occurring in the (diatonic or other) set, and $I[E]$ is the self-information of that note-combination.
     Applying this to the diatonic set yields:
 
     \begin{align}
@@ -440,7 +439,7 @@
     Specifically, we must determine the probability $P_k$ of ending up with a melody containing exactly $k$ distinct pitches.
     These probabilities can then be used as weights for the $\mathbb{E}[I]$ values corresponding to each cardinality (as specified in Table~\ref{tab:entropy-diatonic}).
 
-    The probability of drawing exactly $k$ distinct pitches when selecting $n$ notes from a scale of cardinality $m$ is given by (Joriki, 2023):
+    The probability of drawing exactly $k$ distinct pitches when selecting $n$ notes from a scale of cardinality $m$ is given by \citet{Feller1968}:
 
     \begin{equation}
         P_k = m^{-n} \, \left\langle \genfrac{}{}{0pt}{}{n}{k} \right\rangle \binom{m}{k} \, k!
@@ -515,7 +514,7 @@
             \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
             Full-width placeholder for \texttt{transposition-time.pdf}}}
         }
-        \caption{All 5-note set in 12-EDO and the number of tonal interpretations they leave as a function of the number of notes drawn at random from the set.}
+        \caption{All 5-note set in 12-EDO (twelve equal divisions of the octave) and the number of tonal interpretations they leave as a function of the number of notes drawn at random from the set.}
         \label{fig:time}
     \end{figure*}
 
