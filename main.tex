@@ -110,7 +110,7 @@
     Consequently, the very expression "C whole-tone scale," implying a privileged tonal center, is somewhat misleading.
     In this respect, the whole-tone scale parallels the uniform pentagon in \autoref{fig:shapes}, as both structures lack uniqueness.
 
-    Balzano (1982) argues that uniqueness is a necessary condition for the emergence of tonality, since the assignment of hierarchical roles depends on an unambiguous relationship among a scale's constituent notes.
+    \citet{Balzano1982} argues that uniqueness is a necessary condition for the emergence of tonality, since the assignment of hierarchical roles depends on an unambiguous relationship among a scale's constituent notes.
     Formally, this may be true, yet in practice it is plausible (and, I argue, likely) that listeners can tolerate a degree of tonal ambiguity.
     Thus, the dichotomous framing of uniqueness may obscure the possibility of more gradient tonal interpretations in scales that lack strict uniqueness.
     Notably, the so‑called modes of limited transposition—among them the whole‑tone scale—have long attracted composers precisely because they resist a single unambiguous transposition.
@@ -136,7 +136,7 @@
     As the melody unfolds, the introduction of A\text{$\natural$} rules out both E\text{$\flat$} major and A\text{$\flat$} major; the subsequent F\text{$\natural$} excludes G major; and the later E\text{$\natural$} eliminates B\text{$\flat$} major.
     Ultimately, the melody narrows to interpretations in either C or F major, since the absence of a decisive B\text{$\natural$} or B\text{$\flat$} leaves the final tonic (formally) ambiguous.
 
-    Of course, the process through which listeners determine a passage's tonic is complex and relies on many features beyond a mere tally of pitches (see Lerdahl and Jackendoff (1983) for a thorough treatment along with (Bharucha \& Krumhansl, 1983; Lerdahl, 2004; Patel, Gibson, Ratner, Besson, \& Holcomb, 1998; Thompson, Cuddy, \& Plaus, 1997)).
+    Of course, the process through which listeners determine a passage's tonic is complex and relies on many features beyond a mere tally of pitches. For a thorough treatment, see \citet{LerdahlJackendoff1983} along with related work \citep{BharuchaKrumhansl1983,Lerdahl2004,Patel1998,Thompson1997}.
     The preceding example was intended to illustrate the issue at hand, not to suggest that the tonic of Twinkle, Twinkle, Little Star is unknowable or mysterious.
     In practice, listeners are generally able to infer the underlying scale constituents even when they are not explicitly stated.
     Nonetheless, this passage underscores the principle that uniqueness need not be overtly expressed for a coherent tonal hierarchy to emerge.
@@ -199,7 +199,7 @@
     \section{A "bit" about Information Theory}
 
     As argued above, the dichotomous framing of uniqueness fails to capture the gradient nature of tonal ambiguity, highlighting the need for a more continuous metric.
-    Information Theory, a subdiscipline of data science concerned with the quantification of information (Shannon, 1948), offers a promising framework for such a measure.
+    Information Theory, a subdiscipline of data science concerned with the quantification of information\citep{shannon1948}, offers a promising framework for such a measure.
     At its core, the principle is simple: the rarer an event, the more information it provides.
 
     A familiar analogy is the word‑guessing game hangman, where the goal is to identify a hidden word by guessing letters one at a time.
@@ -276,7 +276,7 @@
     Similarly, in a musical context, highly diagnostic note combinations (such as rare intervals) may drastically narrow the set of possibilities, but their infrequent occurrence means they contribute less to the average experience of tonal induction.
     Thus, we need a method that balances the information each combination provides with the likelihood of its appearance.
 
-    For this, we turn to \textit{entropy}, a measure introduced by Shannon (1948) that calculates the average amount of information contributed by a distribution of events.
+    For this, we turn to \textit{entropy}, a measure introduced by \citet{shannon1948} that calculates the average amount of information contributed by a distribution of events.
     Formally:
 
     \begin{equation}
@@ -535,7 +535,7 @@
     Up to this point, our formalization of tonal ambiguity has assumed that the underlying set was known.
     In other words, we worked within the framework of a given scale and sought to determine the transposition in which it manifested, based on combinations of different cardinalities.
     Yet in real listening contexts, this assumption is not always justified.
-    While certain scale structures are often present as a priori expectations (Krumhansl, 1979), listeners must also identify not only the tonic but the very set or mode that scaffolds a passage.
+    While certain scale structures are often present as a priori expectations\citep{Krumhansl1979}, listeners must also identify not only the tonic but the very set or mode that scaffolds a passage.
     Thus, the task is not merely to decide that a piece is in C, but whether it is in C major, C minor, or another set entirely.
 
     To address this, we can shift focus from measuring a set's ambiguity internally to examining a note‑combination's ability to \textit{disambiguate between different sets}.
