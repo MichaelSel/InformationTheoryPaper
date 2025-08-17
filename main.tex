@@ -10,6 +10,10 @@
 
 \usepackage{makecell}           % in preamble for header wrapping
 \usepackage{booktabs}           % for nicer rules
+\usepackage{placeins} % no [section]
+\usepackage{stfloats} % or \usepackage{dblfloatfix}
+\usepackage{cuted}   % provides the strip environment
+
 
 % --- Page geometry & spacing ---
 \usepackage[a4paper,margin=1in]{geometry}
@@ -164,6 +168,21 @@
     This is because any given note may serve as one of the five scale degrees and, correspondingly, as the tonic of each of five tonalities.
     \autoref{fig:necklaces}A illustrates this reduction: when a single pitch is specified (marked as a white node), only five possible transpositions of the anhemitonic pentatonic set remain, here represented in set‑theoretical notation and as pentagons (see figure caption for details).
 
+    \begin{figure*}[htbp]
+        \centering
+        \IfFileExists{figures/pentatonic-necklaces.pdf}{%
+            \includegraphics[width=0.9\textwidth]{pentatonic-necklaces}%
+        }{%
+            \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
+            Full-width placeholder for \texttt{pentatonic-necklaces.pdf}}}
+        }
+        \caption{The anhemitonic pentatonic scale (02479) represented as a pentagon, with edge lengths proportional to the size of the scale's composite intervals (yellow = 2 semitones, orange = 3 semitones, green = 4 semitones, blue = 5 semitones).
+        A white circle indicates the position of pitch‑class 0, if the set was ordered in prime form, to help orient the reader.
+        \textbf{A)} The five transpositions of 02479 containing pitch‑class 0.
+        \textbf{B)} The remaining candidate transpositions given each of the intervals 02, 03, 04, and 05, respectively.}
+        \label{fig:necklaces}
+    \end{figure*}
+
     While the introduction of one note always creates five possibilities, the informational value of adding a second pitch depends both on the structure of the set and the identity of that pitch.
     As shown in \autoref{fig:necklaces}B, within the pentatonic set, the second note may provide vastly different amounts of information.
     In some cases, such as with the interval 04, the specific transposition of the set can be determined unambiguously.
@@ -180,22 +199,124 @@
 
     The development of such a measure would also serve the interests of cognitive scientists studying tonal induction, providing a principled tool for modeling the process and a framework that lends itself to empirical testing.
 
-    \begin{figure*}[htbp]
-        \centering
-        \IfFileExists{figures/pentatonic-necklaces.pdf}{%
-            \includegraphics[width=0.9\textwidth]{pentatonic-necklaces.pdf}%
-        }{%
-            \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
-            Full-width placeholder for \texttt{pentatonic-necklaces.pdf}}}
-        }
-        \caption{The anhemitonic pentatonic scale (02479) represented as a pentagon, with edge lengths proportional to the size of the scale's composite intervals (yellow = 2 semitones, orange = 3 semitones, green = 4 semitones, blue = 5 semitones).
-        A white circle indicates the position of pitch‑class 0, if the set was ordered in prime form, to help orient the reader.
-        \textbf{A)} The five transpositions of 02479 containing pitch‑class 0.
-        \textbf{B)} The remaining candidate transpositions given each of the intervals 02, 03, 04, and 05, respectively.}
-        \label{fig:necklaces}
-    \end{figure*}
 
-    \section{A "bit" about Information Theory}
+
+    The remainder of this paper is organized as follows.
+    Section~\ref{sec:core} presents the core concepts and practical applications of our tonal ambiguity measure for readers who wish to apply it directly.
+    Section~\ref{sec:math-dev} then provides a complete mathematical development with pedagogical exposition, beginning with an accessible introduction to information theory before systematically deriving the measure and exploring its implications across various musical scales.
+
+    \section{Core Concepts and Applications}\label{sec:core}
+
+    \noindent\textbf{Who this section is for.}
+    Readers who want the \emph{bottom line}: what the paper introduces, how to compute it, and how to use it—without the pedagogical build‑up. Complete derivations and examples appear in \S\ref{sec:math-dev}.
+
+    \subsection*{What this paper contributes}
+    \begin{enumerate}
+        \item A \emph{continuous} measure of tonal ambiguity for any pitch‑class collection $S$ in any equal division of the octave (EDO), extending the binary notion of \emph{uniqueness}.
+        \item A principled way to aggregate information across subset sizes (dyads, trichords, \dots, up to $|S|$) into a single set‑level quantity.
+        \item A time‑aware variant that models melodies as draws with repetition and weights results by the expected number of \emph{distinct} pitches.
+        \item A cross‑set ``disambiguation'' view: how observed notes rule in/out \emph{which} common scale family is likely, not only \emph{which transposition}.
+    \end{enumerate}
+
+    \subsection*{Key quantities (use these, see \S\ref{sec:math-dev} for derivations)}
+    Let $c$ be the size of the chromatic space (e.g., $c{=}12$ in 12‑EDO). Let $S\subset \mathbb{Z}_c$ be a pitch‑class set of size $m{=}|S|$. For an observed combination $X\subset \mathbb{Z}_c$ of $k$ distinct pitch classes:
+    \begin{itemize}
+        \item \textbf{Remaining tonal interpretations within $S$:}
+        \[
+            t_S(X) \;=\; \bigl|\{\tau\in \mathbb{Z}_c : X \subseteq \tau{+}S\}\bigr|,
+        \]
+        i.e., the number of candidate tonics/transpositions that remain possible for $S$ given $X$. (For modes of limited transposition, $t_S(X)$ naturally reflects rotational symmetries.)
+        \item \textbf{Self‑information provided by $X$ (bits):}
+        \[
+            I_S(X) \;=\; \log_2\!\left(\frac{c}{t_S(X)}\right)
+            \quad\text{(cf.\ Eq.~\ref{eq:derivingSelfInformation}).}
+        \]
+        \item \textbf{Cardinality‑$k$ expected information (bits):}
+        \[
+            \mathbb{E}_{\Omega_k(S)}[I]
+            \;=\; \frac{1}{\binom{m}{k}} \sum_{\substack{X\subseteq S\\ |X|=k}} I_S(X)
+            \quad\text{(cf.\ Eq.~\ref{eq:expected-info}).}
+        \]
+        Grouping isomorphic combinations (e.g., by interval class for dyads) yields the same value with combinatorial weights; for dyads these weights are the entries of the interval vector.
+        \item \textbf{Set‑level ambiguity (bits) and its musical reading.}
+        Averaging over all non‑empty cardinalities,
+        \[
+            \mathbb{E}_S[I]
+            \;=\; \sum_{k=1}^{m}\!\left(\frac{\binom{m}{k}}{2^m-1}\right)\, \mathbb{E}_{\Omega_k(S)}[I]
+            \quad\text{(cf.\ Eq.~\ref{eq:diatonic-avg}).}
+        \]
+        We report the musically transparent companion
+        \[
+            \boxed{\; \bar{t}(S) \;=\; \frac{c}{2^{\mathbb{E}_S[I]}} \;}
+            \quad\text{(avg.\ \# of tonal interpretations),}
+            \quad\text{cf.\ Eq.~\ref{eq:remaining_transpositions}.}
+        \]
+        Smaller $\bar{t}(S)$ means \emph{less} ambiguity (fewer viable tonics); larger $\bar{t}(S)$ means \emph{more} ambiguity.
+    \end{itemize}
+
+    \paragraph{Time‑aware variant (melodic draws).}
+    If a passage contains $n$ notes drawn with repetition from $S$ of size $m$, let $P_k$ be the probability that these $n$ draws yield exactly $k$ \emph{distinct} pitch classes:
+    \[
+        P_k \;=\; m^{-n}\, \Bigl\langle \genfrac{}{}{0pt}{}{n}{k} \Bigr\rangle \binom{m}{k}\, k!
+        \quad\text{(Stirling‑weighted; Eq.~\ref{eq:Pk}).}
+    \]
+    Then the expected information and its musical reading for an $n$‑note passage are
+    \[
+        \mathbb{E}_S[I \mid n]
+        \;=\; \sum_{k=1}^{m} P_k \, \mathbb{E}_{\Omega_k(S)}[I],
+        \qquad
+        \bar{t}_n(S) \;=\; \frac{c}{2^{\mathbb{E}_S[I \mid n]}}.
+    \]
+    In practice, $n{=}8$ offers a good balance: long enough to distinguish 8‑note sets (e.g., octatonic) yet short enough to avoid trivial convergence.
+
+    \subsection*{How to compute it (minimal recipe)}
+    \begin{enumerate}
+        \item \textbf{Fix the universe.} Choose $c$ (e.g., $12$) and a set $S$ (e.g., major, pentatonic, octatonic).
+        \item \textbf{Precompute coverage.} For every $\tau\in \mathbb{Z}_c$, form $\tau{+}S$; record which combinations $X$ (for each $k$) occur in each transposition.
+        \item \textbf{For each $k$:} For all $X{\subseteq}S$ with $|X|{=}k$, compute $t_S(X)$ by counting the number of $\tau$ with $X\subseteq \tau{+}S$, then $I_S(X)=\log_2(c/t_S(X))$ and average to get $\mathbb{E}_{\Omega_k(S)}[I]$.
+        \item \textbf{Aggregate.} Combine across cardinalities with the binomial weights to get $\mathbb{E}_S[I]$ and report $\bar{t}(S)=c/2^{\mathbb{E}_S[I]}$. For a time‑aware view at length $n$, weight by $P_k$ instead.
+    \end{enumerate}
+
+    \subsection*{Diagnostic combinations and cross‑set use}
+    \begin{itemize}
+        \item \textbf{Diagnostic within a set.} A combination $X$ is \emph{diagnostic} for $S$ if $t_S(X)=1$ (i.e., it pins down the tonic/transposition). In the diatonic set, several trichords containing IC\,6 are diagnostic (see Table~\ref{tab:trichords} and Fig.~\ref{fig:cadential}).
+        \item \textbf{Disambiguating between scale families.} For a family $\mathcal{F}$ of candidate sets (e.g., \{major, harmonic minor, melodic minor, pentatonic, whole‑tone, octatonic\}), define
+        \[
+            t_{\mathcal{F}}(X) \;=\; \bigl|\{\,S\in\mathcal{F}:\exists\,\tau \text{ s.t. } X\subseteq \tau{+}S\,\}\bigr|
+        \]
+        and $D_{\mathcal{F}}(X)=\log_2\!\bigl(|\mathcal{F}|/t_{\mathcal{F}}(X)\bigr)$ as the \emph{disambiguation gain} (bits) of $X$ across sets. Tables~\ref{tab:comb-cardinality} and \ref{tab:avg-viable-sets} summarize typical values and useful heuristics.
+    \end{itemize}
+
+    \subsection*{Headline results (useful at a glance)}
+    Numbers below are the average number of viable tonal interpretations $\bar{t}(S)$; lower is less ambiguous.
+    \begin{itemize}
+        \item \textbf{Common sets with uniqueness.} Major $\approx 2.42$; Pentatonic $\approx 2.29$; Melodic minor $\approx 1.92$; Harmonic minor $\approx 1.87$ (Table~\ref{tab:tonal-interpretations}).
+        \item \textbf{Modes of limited transposition.} Whole‑tone $\approx 6.00$ (flat across $k$); Octatonic $\approx 4.33$; Augmented $\approx 3.49$ (Table~\ref{tab:tonal-interpretations-mlt}).
+        \item \textbf{Temporal convergence (8‑note draws).} Major, harmonic minor, and ascending melodic minor tend to converge rapidly toward uniqueness ($\bar{t}_8(S)\approx 1$); pentatonic converges more slowly; whole‑tone remains at $6$; octatonic approaches ${\sim}4$ (Fig.~\ref{fig:wide}).
+    \end{itemize}
+
+    \subsection*{Practical ways to use the metric}
+    \begin{enumerate}
+        \item \textbf{Analysis.} Given notes $X$ heard in context $S$, report $t_S(X)$ (how many tonics remain) and $I_S(X)$ in bits. Example: in the diatonic set, the dyad 01 leaves $t{=}2$ (about $2.58$ bits), while 05 often leaves $t{=}6$ (about $1$ bit).
+        \item \textbf{Comparing scales.} Prefer sets with smaller $\bar{t}(S)$ for faster \emph{tonal induction}; prefer larger $\bar{t}(S)$ to \emph{sustain} tonal ambiguity.
+        \item \textbf{Compositional design.} Use diagnostic combinations ($t{=}1$) to engineer cadential clarity; avoid them (or use high‑$t$ combinations) to prolong ambiguity.
+        \item \textbf{Pedagogy / cognition.} $\bar{t}_n(S)$ offers a testable prediction for how quickly different sets yield stable tonic inferences as note evidence accrues.
+    \end{enumerate}
+
+    \subsection*{Assumptions, knobs, and extensions (brief)}
+    \begin{itemize}
+        \item The default assumes all $k$‑subsets of $S$ are equally likely; style‑specific weights (e.g., corpus‑derived) can replace the uniform model in $\mathbb{E}_{\Omega_k(S)}[I]$.
+        \item Replace $c{=}12$ with any EDO (or any finite chromatic universe) to extend beyond 12‑EDO.
+        \item The present metric is intentionally pitch‑class based; timbre, meter, voice‑leading, and duration are orthogonal cues you may layer on in other models.
+    \end{itemize}
+
+
+    \section{Mathematical Development}\label{sec:math-dev}
+
+    \textit{The following sections provide detailed derivations and pedagogical exposition of the concepts introduced above. Readers seeking to understand the mathematical foundations or looking for a gentler introduction to information theory in musical contexts should continue here.}
+
+
+    \subsection{A "bit" about Information Theory}
 
     As argued above, the dichotomous framing of uniqueness fails to capture the gradient nature of tonal ambiguity, highlighting the need for a more continuous metric.
     Information Theory, a subdiscipline of data science concerned with the quantification of information\citep{shannon1948}, offers a promising framework for such a measure.
@@ -231,7 +352,7 @@
     To determine the key unambiguously, the space must shrink from 12 to 1, which requires approximately 3.585 bits.
     Put differently, identifying the tonic in Western music entails resolving an initial uncertainty of 3.585 bits.
 
-    \section{The Diatonic Set}
+    \subsection{The Diatonic Set}
 
     When a note is randomly selected from the diatonic set, the number of possible transpositions decreases from 12 to 7, since that note may serve as any of the scale's degrees.
     This mirrors the case of the pentatonic set, where a single note reduces the transpositional space from 12 to 5.
@@ -377,7 +498,7 @@
     Since raw values in bits may feel abstract, it is recommended to present ambiguity as the \textit{average number of possible tonal interpretations} (with conversion via Equation~\ref{eq:remaining_transpositions}).
     This framing preserves mathematical rigor while ensuring interpretability in musical terms.
 
-    \section{Common scales with uniqueness}
+    \subsection{Common scales with uniqueness}
 
     By applying our synthesized measure of ambiguity, we can extend our understanding of scales beyond a binary classification of uniqueness.
     This measure enables direct comparison of scales in their capacity to induce tonality, both through analyses of note combinations at varying cardinalities and through set‑level evaluations.
@@ -393,7 +514,7 @@
 
     \input{tables/tab-tonal-interpretations}
 
-    \section{Modes of limited transposition}
+    \subsection{Modes of limited transposition}
 
     As noted in the introduction, modes of limited transposition were a central motivation for this study.
     Because they do not possess the uniqueness property, they present an ideal testing ground for a measure that quantifies tonal ambiguity beyond a simple binary classification.
@@ -409,7 +530,7 @@
 
     \input{tables/tab-tonal-interpretations-mlt}
 
-    \section{Consolidating insights}
+    \subsection{Consolidating insights}
 
     Table~\ref{tab:scale-ambiguity} presents the ambiguity values for the seven common scales examined in this study.
     Crucially, this measure allows scales that possess uniqueness to be compared directly with those that do not, situating both on a single continuum of tonal ambiguity.
@@ -421,7 +542,7 @@
 
     \input{tables/tab-scale-ambiguity}
 
-    \section{Allowing for time}
+    \subsection{Allowing for time}
 
     The ambiguity values computed thus far rest on an important assumption: that each note drawn from a scale is new, not previously heard.
     This assumption overlooks the temporal nature of music, where notes may repeat before new ones appear.
@@ -529,7 +650,7 @@
     That said, AUC and ambiguity values are highly correlated ($r^2 > 0.98$ for both 5‑ and 7‑note scales), suggesting a strong intrinsic relationship.
     Thus, while AUC may serve as a form of validation, the ambiguity values developed earlier remain preferable: they are rigorous, musically interpretable, and provide a direct means of quantifying tonal ambiguity across different sets.
 
-    \section{Disambiguating Sets}
+    \subsection{Disambiguating Sets}
 
     Up to this point, our formalization of tonal ambiguity has assumed that the underlying set was known.
     In other words, we worked within the framework of a given scale and sought to determine the transposition in which it manifested, based on combinations of different cardinalities.
@@ -559,7 +680,7 @@
 
     \input{tables/tab-avg-viable-sets}
 
-    \section{Conclusion}
+    \subsection{Conclusion}
 
     The property of uniqueness provides complete orientation within a collection of notes, ensuring that its transposition can be identified without ambiguity.
     In scales that fulfill uniqueness, this property supports the emergence of a clear and singular tonality.
@@ -584,8 +705,6 @@
     \bibliography{refs}
 
     \clearpage
-    \appendix
-    \section*{Appendix: Possible Transpositions by Combination}
 
 % Shading helpers
     \newcommand{\sone}[1]{\cellcolor{gray!20}{#1}} % single interpretation "1"
@@ -594,34 +713,31 @@
 % ---------- Appendix: full table ----------
     \section*{Appendix: Possible Transpositions by Combination}
 
-    \setlength{\tabcolsep}{3.5pt} % tighten for two-column width
-    \small                         % (optional) slightly smaller font for appendix tables
+    % ---- begin squeeze ----
+    \begingroup
+    \footnotesize                           % smaller font (try \footnotesize if this is too small)
+%    \setlength{\tabcolsep}{2.2pt}         % narrower column padding (default is 6pt)
+%    \renewcommand{\arraystretch}{0.9}     % tighter rows (1.0 is default)
+
+% (optional) slightly tighter booktabs spacing
+    \setlength{\aboverulesep}{0.3ex}
+    \setlength{\belowrulesep}{0.3ex}
 
 % Repeated head/foot for supertabular
     \tablefirsthead{%
         \toprule
         \makecell[l]{Combo} &
-        \makecell[c]{M} &
-        \makecell[c]{mm} &
-        \makecell[c]{hm} &
-        \makecell[c]{WT} &
-        \makecell[c]{O} &
-        \makecell[c]{P} &
-        \makecell[c]{A} &
-        \makecell[c]{Possible\\Sets} \\
+        \makecell[c]{M} & \makecell[c]{mm} & \makecell[c]{hm} &
+        \makecell[c]{WT} & \makecell[c]{O} & \makecell[c]{P} &
+        \makecell[c]{A} & \makecell[c]{Possible\\Sets} \\
         \midrule
     }
     \tablehead{%
         \toprule
         \makecell[l]{Combo} &
-        \makecell[c]{M} &
-        \makecell[c]{mm} &
-        \makecell[c]{hm} &
-        \makecell[c]{WT} &
-        \makecell[c]{O} &
-        \makecell[c]{P} &
-        \makecell[c]{A} &
-        \makecell[c]{Possible\\Sets} \\
+        \makecell[c]{M} & \makecell[c]{mm} & \makecell[c]{hm} &
+        \makecell[c]{WT} & \makecell[c]{O} & \makecell[c]{P} &
+        \makecell[c]{A} & \makecell[c]{Possible\\Sets} \\
         \midrule
     }
     \tabletail{%
@@ -630,6 +746,12 @@
     }
     \tablelasttail{\bottomrule}
 
+% your table content:
     \input{tables/tab-appendix}
+
+    \endgroup
+% ---- end squeeze ----
+
+
 
 \end{document}
