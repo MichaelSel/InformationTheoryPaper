@@ -1,0 +1,47 @@
+# Core LaTeX intermediate files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Editor-specific files
+*.synctex
+*.nav
+*.snm
+*.vrb
+
+# latexmk & TeXnicCenter intermediate files
+*.dvi
+*.xdv
+*.pdfsync
+
+# Glossary, nomenclature, index
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.maf
+*.mtc
+*.mtc0
+*.nlo
+*.nls
+
+# Backup files
+*~
+*.bak
+*.sav
+*.swp
