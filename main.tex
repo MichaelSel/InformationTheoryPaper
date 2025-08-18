@@ -9,6 +9,7 @@
 \usepackage{lmodern}
 \usepackage{microtype}           % better typography
 
+
 % ---- Page geometry & columns ----
 \usepackage[a4paper,margin=1in]{geometry}
 \setlength{\columnsep}{0.25in}   % space between columns
@@ -36,8 +37,11 @@
 
 % ---- Floats ----
 \usepackage{stfloats}            % allow bottom placement of double-column floats
-\usepackage{cuted}               % 'strip' environment for full-width in two columns
 \usepackage{placeins}            % \FloatBarrier
+\setlength{\dbltextfloatsep}{8pt plus 2pt minus 2pt} % space between dbl-floats and text
+\renewcommand{\textfraction}{.05}
+\renewcommand{\dbltopfraction}{.95}
+\renewcommand{\dblfloatpagefraction}{.9} % avoid float-only pages
 
 % ---- Links & bibliography ----
 \usepackage[numbers,sort&compress]{natbib}
@@ -69,23 +73,11 @@
         \maketitle
         % NOTE: Material in this optional argument is typeset full-width automatically.
         \begin{abstract}
-            This paper proposes a new measure of tonal ambiguity in music that builds on the
-            established concept of uniqueness.
-While uniqueness is widely viewed as a
-            necessary condition for tonality, it has limitations in its ability to make
-            nuanced determinations on sets that possess it, to capture the hierarchical
-            organization of notes in modes of limited transposition, and to account for the
-            temporal aspect of music.
-To address these limitations, this paper introduces a
-            companion measure that quantifies the degree of tonal ambiguity within a set of
-            notes, using insights from information theory.
-This measure can be applied
-            across different sets and tuning systems, allowing for a continuous assessment
-            of tonal ambiguity that provides a more nuanced understanding of the structure
-            of musical sets.
-The proposed measure thus expands our ability to analyze and
-            interpret the tonal relationships between notes, offering a valuable tool for
-            music theorists and practitioners alike.
+            We propose a continuous measure of tonal ambiguity that builds on the established concept of uniqueness.
+            While uniqueness is widely regarded as necessary for tonality, it cannot (i) discriminate among sets that possess it, (ii) capture hierarchical organization in modes of limited transposition, or (iii) account for temporal unfolding
+            To address these limitations, we introduce a companion measure that quantifies the degree of tonal ambiguity in a set, grounded in information theory.
+            The measure applies across pitch‑class sets and tuning systems, yielding a continuous assessment of tonal ambiguity.
+            It expands analytic coverage of tonal relationships and offers a practical tool for theory and analysis.
         \end{abstract}
         \vspace{2em}
     ]
@@ -97,7 +89,7 @@ The proposed measure thus expands our ability to analyze and
     \citet{Balzano1982} argues that, as a prerequisite for such hierarchy to emerge among a set’s members, the set must possess a structural property called “uniqueness.”
     This claim was recently supported by \citet{Pelofi2021}, who showed empirically that melodic statistical dependencies are learned more effectively in sets that exhibit uniqueness.
 
-    A scale exhibits \textit{uniqueness} when relations among its notes permit a single, unambiguous transposition.
+    A scale exhibits \textit{uniqueness} when relations among its notes permit a single unambiguous transposition.
     This property enables listeners to orient themselves within the conceptual space defined by the scale’s internal relationships.
     \autoref{fig:shapes}A illustrates this with two pentagons: the left demonstrates uniqueness; the right does not.
     The distinction lies in the edges: those on the left occur in two different sizes (yellow and orange), whereas those on the right are uniform.
@@ -116,13 +108,12 @@ The proposed measure thus expands our ability to analyze and
     For example, the major scale exhibits uniqueness, allowing us to identify C–D–E–F–G–A–B unambiguously as the key of C (or one of its modes) rather than as any of its 11 other transpositions; its internal structure makes the orientation clear.
     By contrast, scales that lack uniqueness resist such identification.
     Consider the whole‑tone scale: C–D–E–F$\sharp$–G$\sharp$–B$\flat$ cannot be definitively labeled as a “C whole‑tone scale” or a “D whole‑tone scale,” since its uniform structure renders every pitch an equally plausible tonic.
-    Consequently, the very label “C whole‑tone scale,” which implies a privileged tonic, is somewhat misleading.
+    Consequently, the label “C whole‑tone scale,” which implies a privileged tonic, is misleading.
     In this respect, the whole‑tone scale parallels the uniform pentagon in \autoref{fig:shapes}, as both structures lack uniqueness.
-
     \citet{Balzano1982} argues that uniqueness is necessary for the emergence of tonality, since the assignment of hierarchical roles depends on unambiguous relations among a scale’s notes.
-    Formally, this may be true, yet in practice it is plausible (and, I argue, likely) that listeners tolerate a degree of tonal ambiguity.
+    Formally this may be true, yet in practice listeners likely tolerate some tonal ambiguity.
     Thus, a binary framing may obscure more graded tonal interpretations in scales that lack strict uniqueness.
-    Notably, the so‑called modes of limited transposition—among them the whole‑tone scale—have long attracted composers precisely because they resist a single unambiguous transposition.
+    Notably, the modes of limited transposition—among them the whole‑tone scale—have long attracted composers precisely because they resist a single unambiguous transposition.
     Nonetheless, these modes are more structured than atonality: they admit strictly more than one tonal interpretation, but strictly fewer than twelve \citep{Messiaen1944}.
     This position allows them to support both chromaticism and modulation, albeit within clear structural constraints.
 
@@ -144,7 +135,7 @@ The proposed measure thus expands our ability to analyze and
 
     Of course, listeners determine a passage’s tonic using many features beyond a tally of pitches.
     For a thorough treatment, see \citet{LerdahlJackendoff1983} and related work \citep{BharuchaKrumhansl1983,Lerdahl2004,Patel1998,Thompson1997}.
-    The preceding example simply illustrates the issue at hand; it does not suggest that the tonic of \emph{Twinkle, Twinkle, Little Star} is unknowable.
+    The preceding example simply illustrates the point; it does not suggest that the tonic of \emph{Twinkle, Twinkle, Little Star} is unknowable.
     In practice, listeners often infer underlying scale constituents even when they are not explicitly stated.
     Nonetheless, the passage underscores that uniqueness need not be explicitly expressed for a coherent tonal hierarchy to emerge.
 
@@ -185,7 +176,7 @@ The proposed measure thus expands our ability to analyze and
     These observations suggest that, to capture tonal potential not only in modes of limited transposition but also in scales that formally possess uniqueness, we require a measure that goes beyond a binary classification.
     Such a measure must reflect that music unfolds sequentially and that tonal clarity often emerges gradually.
     To this end, I introduce a metric analogous to uniqueness but defined continuously, expressing degrees of tonal ambiguity (or certainty).
-    Methods from Information Theory provide a rigorous framework for such a measure, allowing us to calculate precisely how much tonal uncertainty remains given an arbitrary collection of pitches.
+    Methods from information Theory provide a rigorous framework for such a measure, allowing us to calculate precisely how much tonal uncertainty remains given an arbitrary collection of pitches.
 
     The remainder of this paper is organized as follows.
     Section~\ref{sec:core} presents the core concepts and practical applications of the proposed measure.
@@ -304,7 +295,7 @@ The proposed measure thus expands our ability to analyze and
 Readers seeking to understand the mathematical foundations or looking for a gentler introduction to information theory in musical contexts should continue here.}
 
 
-    \subsection{A "bit" about Information Theory}
+    \subsection{A "bit" about information Theory}
 
     As argued above, the dichotomous framing of uniqueness fails to capture the gradient nature of tonal ambiguity, highlighting the need for a more continuous metric.
     Information Theory, a subdiscipline of data science concerned with the quantification of information \citep{shannon1948}, offers a promising framework for such a measure.
@@ -346,7 +337,7 @@ Readers seeking to understand the mathematical foundations or looking for a gent
     This mirrors the case of the pentatonic set, where a single note reduces the transpositional space from 12 to 5.
     As with the pentatonic scale (see \autoref{fig:necklaces}B), however, the impact of adding a second note depends heavily on which note is chosen.
     Previously, we illustrated this variability through exhaustive listing, but as the size of the set increases, such enumeration quickly becomes impractical—especially when considering combinations beyond pairs of notes.
-    To address this more effectively, we turn to Information Theory, which allows us to quantify the information contributed by each combination.
+    To address this more effectively, we turn to information Theory, which allows us to quantify the information contributed by each combination.
 
     In the diatonic set, two‑note combinations vary widely in the information they provide.
     \paragraph{Example.}
@@ -479,7 +470,7 @@ Readers seeking to understand the mathematical foundations or looking for a gent
     Smaller TAI indicates less ambiguity (fewer viable tonics); larger TAI indicates more ambiguity.
 
     Although the calculations rely on information theory, the intent of this framework is practical: to describe tonal ambiguity in terms accessible to musicians and theorists.
-    Since raw values in bits may feel abstract, it is recommended to present ambiguity as the \textit{average number of possible tonal interpretations} (with conversion via Equation~\ref{eq:remaining_transpositions}).
+    Since raw values in bits may feel abstract, it is recommended to present ambiguity as the \textit{average number of possible tonal interpretations} (with conversion via Eq.~\ref{eq:remaining_transpositions}).
     This framing preserves mathematical rigor while ensuring interpretability in musical terms.
 
     \subsection{Common scales with uniqueness}
@@ -508,7 +499,7 @@ Readers seeking to understand the mathematical foundations or looking for a gent
     Table~\ref{tab:tonal-interpretations-mlt} presents three common examples: the octatonic scale (0235689E), the whole‑tone scale (02468T), and the augmented scale (03478E).
     For each, the table shows the number of tonal interpretations (t) available across different note‑combination cardinalities, as well as the overall ambiguity of the set.
 
-    The results reveal that the whole tone scale is the most ambiguous, averaging t=6 possible tonal interpretations.
+    The results reveal that the whole‑tone scale is the most ambiguous, averaging t=6 possible tonal interpretations.
     The octatonic scale follows with $t \approx 4.33$, while the augmented scale exhibits the least ambiguity of the three, with $t \approx 3.49$.
     These findings underscore how, even without uniqueness, different modes of limited transposition afford markedly different capacities for sustaining tonal ambiguity.
 
@@ -615,7 +606,7 @@ This melody consists of four distinct pitches: A, C, G, and E.
         \caption{The number of tonal interpretations available in common scales as a function of the number of notes drawn from them at random.
         The y‑axis represents the number of tonal interpretations available.
         The x‑axis refers to the number of draws.
-        These values were computed using Equation~\ref{eq:Pk}.}
+        These values were computed using Eq.~\ref{eq:Pk}.}
         \label{fig:wide}
     \end{figure*}
 
