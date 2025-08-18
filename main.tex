@@ -49,7 +49,7 @@
 \usepackage{supertabular}        % multipage tables in twocolumn
 
 % ---- Macros ----
-\newcommand{\Stirling}[2]{\left\{ {#1 \atop #2} \right\}} % Stirling numbers of the second kind
+\newcommand{\Stirling}[2]{\genfrac\{\}{0pt}{}{#1}{#2}}
 % Accidentals in running text
 \newcommand{\nflat}{\ensuremath{\flat}}
 \newcommand{\nsharp}{\ensuremath{\sharp}}
@@ -70,16 +70,20 @@
         % NOTE: Material in this optional argument is typeset full-width automatically.
         \begin{abstract}
             This paper proposes a new measure of tonal ambiguity in music that builds on the
-            established concept of uniqueness. While uniqueness is widely viewed as a
+            established concept of uniqueness.
+While uniqueness is widely viewed as a
             necessary condition for tonality, it has limitations in its ability to make
             nuanced determinations on sets that possess it, to capture the hierarchical
             organization of notes in modes of limited transposition, and to account for the
-            temporal aspect of music. To address these limitations, this paper introduces a
+            temporal aspect of music.
+To address these limitations, this paper introduces a
             companion measure that quantifies the degree of tonal ambiguity within a set of
-            notes, using insights from information theory. This measure can be applied
+            notes, using insights from information theory.
+This measure can be applied
             across different sets and tuning systems, allowing for a continuous assessment
             of tonal ambiguity that provides a more nuanced understanding of the structure
-            of musical sets. The proposed measure thus expands our ability to analyze and
+            of musical sets.
+The proposed measure thus expands our ability to analyze and
             interpret the tonal relationships between notes, offering a valuable tool for
             music theorists and practitioners alike.
         \end{abstract}
@@ -102,14 +106,9 @@
 
     \begin{figure}[htbp]
         \centering
-        \IfFileExists{figures/two-shapes.pdf}{%
-            \includegraphics[width=\linewidth]{figures/two-shapes}%
-        }{%
-            \fbox{\parbox[c][0.6\linewidth][c]{0.95\linewidth}{\centering
-            Placeholder for \texttt{figures/example-figure.pdf}\\[3pt]
-            (replace with \texttt{\textbackslash includegraphics})}}
-        }
-        \caption{A) Two pentagons differing in structural properties: the left, with sides of two distinct lengths (yellow and orange), exhibits uniqueness; the right, with five equal sides, lacks uniqueness. B) After rotation, only the unique pentagon can be reoriented unambiguously, whereas the uniform pentagon admits multiple indistinguishable orientations.}
+        \includegraphics[width=\linewidth]{figures/two-shapes}%
+        \caption{A) Two pentagons differing in structural properties: the left, with sides of two distinct lengths (yellow and orange), exhibits uniqueness; the right, with five equal sides, lacks uniqueness.
+B) After rotation, only the unique pentagon can be reoriented unambiguously, whereas the uniform pentagon admits multiple indistinguishable orientations.}
         \label{fig:shapes}
     \end{figure}
 
@@ -145,7 +144,8 @@
     As the melody unfolds, the introduction of A$\natural$ rules out both E$\flat$ major and A$\flat$ major; the subsequent F$\natural$ excludes G major; and the later E$\natural$ eliminates B$\flat$ major.
     Ultimately, the melody narrows to interpretations in either C or F major, since the absence of a decisive B$\natural$ or B$\flat$ leaves the final tonic (formally) ambiguous.
 
-    Of course, the process through which listeners determine a passage's tonic is complex and relies on many features beyond a mere tally of pitches. For a thorough treatment, see \citet{LerdahlJackendoff1983} along with related work \citep{BharuchaKrumhansl1983,Lerdahl2004,Patel1998,Thompson1997}.
+    Of course, the process through which listeners determine a passage's tonic is complex and relies on many features beyond a mere tally of pitches.
+    For a thorough treatment, see \citet{LerdahlJackendoff1983} along with related work \citep{BharuchaKrumhansl1983,Lerdahl2004,Patel1998,Thompson1997}.
     The preceding example was intended to illustrate the issue at hand, not to suggest that the tonic of Twinkle, Twinkle, Little Star is unknowable or mysterious.
     In practice, listeners are generally able to infer the underlying scale constituents even when they are not explicitly stated.
     Nonetheless, this passage underscores the principle that uniqueness need not be explicitly expressed for a coherent tonal hierarchy to emerge.
@@ -155,12 +155,7 @@
 
     \begin{figure*}[htbp]
         \centering
-        \IfFileExists{figures/twinkle.png}{%
-            \includegraphics[width=0.9\textwidth]{figures/twinkle}%
-        }{%
-            \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
-            Full-width placeholder for \texttt{twinkle.png}}}
-        }
+        \includegraphics[width=0.9\textwidth]{figures/twinkle}%
         \caption{\emph{Twinkle, Twinkle, Little Star} with possible tonal interpretations marked below.}        \label{fig:twinkle}
     \end{figure*}
 
@@ -173,12 +168,7 @@
 
     \begin{figure*}[htbp]
         \centering
-        \IfFileExists{figures/pentatonic-necklaces.pdf}{%
-            \includegraphics[width=0.9\textwidth]{pentatonic-necklaces}%
-        }{%
-            \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
-            Full-width placeholder for \texttt{pentatonic-necklaces.pdf}}}
-        }
+        \includegraphics[width=0.9\textwidth]{pentatonic-necklaces}%
         \caption{The anhemitonic pentatonic scale (02479) represented as a pentagon, with edge lengths proportional to the size of the scale's composite intervals (yellow = 2 semitones, orange = 3 semitones, green = 4 semitones, blue = 5 semitones).
         A white circle indicates the position of pitch‑class 0, if the set was ordered in prime form, to help orient the reader.
         \textbf{A)} The five transpositions of 02479 containing pitch‑class 0.
@@ -215,7 +205,8 @@
     \section{Core Concepts and Applications}\label{sec:core}
 
     \noindent\textbf{Who this section is for.}
-    Readers who want the \emph{bottom line}: what the paper introduces, how to compute it, and how to use it—without the pedagogical build‑up. Complete derivations and examples appear in \S\ref{sec:math-dev}.
+    Readers who want the \emph{bottom line}: what the paper introduces, how to compute it, and how to use it—without the pedagogical build‑up.
+Complete derivations and examples appear in \S\ref{sec:math-dev}.
 
     \subsection*{What this paper contributes}
     \begin{enumerate}
@@ -226,45 +217,48 @@
     \end{enumerate}
 
     \subsection*{Key quantities (use these, see \S\ref{sec:math-dev} for derivations)}
-    Let $c$ be the size of the chromatic space (e.g., $c{=}12$ in 12‑EDO). Let $S\subset \mathbb{Z}_c$ be a pitch‑class set of size $m{=}|S|$. For an observed combination $X\subset \mathbb{Z}_c$ of $k$ distinct pitch classes:
+    Let $c$ be the size of the chromatic space (e.g., $c{=}12$ in 12‑EDO).
+    Let $S\subset \mathbb{Z}_c$ be a pitch‑class set of size $m{=}|S|$.
+For an observed combination $X\subset \mathbb{Z}_c$ of $k$ distinct pitch classes:
     \begin{itemize}
-        \item \textbf{Remaining tonal interpretations within $S$:}
-        \[
-            t_S(X) \;=\; \bigl|\{\tau\in \mathbb{Z}_c : X \subseteq \tau{+}S\}\bigr|,
-        \]
-        i.e., the number of candidate tonics/transpositions that remain possible for $S$ given $X$. (For modes of limited transposition, $t_S(X)$ naturally reflects rotational symmetries.)
-        \item \textbf{Self‑information provided by $X$ (bits):}
-        \[
-            I_S(X) \;=\; \log_2\!\left(\frac{c}{t_S(X)}\right)
-            \quad\text{(cf.\ Eq.~\ref{eq:derivingSelfInformation}).}
-        \]
-        \item \textbf{Cardinality‑$k$ expected information (bits):}
-        \[
+        \item \textbf{Remaining tonal interpretations within $S$.}
+        \begin{equation*}
+            t_S(X) \coloneqq \bigl|\{\tau\in \mathbb{Z}_c : X \subseteq \tau{+}S\}\bigr|.
+        \end{equation*}
+        This is the number of candidate tonics/transpositions that remain possible for $S$ given $X$. For modes of limited transposition, $t_S(X)$ naturally reflects rotational symmetries.
+
+        \item \textbf{Self-information provided by $X$ (bits).}
+        \begin{equation*}
+            I_S(X) \coloneqq \log_2\!\left(\frac{c}{t_S(X)}\right).
+        \end{equation*}
+        (cf.\ Eq.~\ref{eq:derivingSelfInformation}.)
+
+        \item \textbf{Cardinality-$k$ expected information (bits).}
+        \begin{equation*}
             \mathbb{E}_{\Omega_k(S)}[I]
-            \;=\; \frac{1}{\binom{m}{k}} \sum_{\substack{X\subseteq S\\ |X|=k}} I_S(X)
-            \quad\text{(cf.\ Eq.~\ref{eq:expected-info}).}
-        \]
+            \coloneqq \frac{1}{\binom{m}{k}} \sum_{\substack{X\subseteq S\\ |X|=k}} I_S(X).
+        \end{equation*}
         Grouping isomorphic combinations (e.g., by interval class for dyads) yields the same value with combinatorial weights; for dyads these weights are the entries of the interval vector.
-        \item \textbf{Set‑level ambiguity (bits) and its musical reading.}
-        Averaging over all non‑empty cardinalities,
-        \[
+
+        \item \textbf{Set-level ambiguity (bits) and its musical reading.}
+        Averaging over all non-empty cardinalities,
+        \begin{equation*}
             \mathbb{E}_S[I]
-            \;=\; \sum_{k=1}^{m}\!\left(\frac{\binom{m}{k}}{2^m-1}\right)\, \mathbb{E}_{\Omega_k(S)}[I]
-            \quad\text{(cf.\ Eq.~\ref{eq:diatonic-avg}).}
-        \]
+            \coloneqq \sum_{k=1}^{m}\!\left(\frac{\binom{m}{k}}{2^m-1}\right)\, \mathbb{E}_{\Omega_k(S)}[I].
+        \end{equation*}
         We report the musically transparent companion
-        \[
-            \boxed{\; \bar{t}(S) \;=\; \frac{c}{2^{\mathbb{E}_S[I]}} \;}
-            \quad\text{(avg.\ \# of tonal interpretations),}
-            \quad\text{cf.\ Eq.~\ref{eq:remaining_transpositions}.}
-        \]
+        \begin{equation*}
+            \boxed{\bar{t}(S)=\frac{c}{2^{\mathbb{E}_S[I]}}}
+        \end{equation*}
+        \emph{Average \# of tonal interpretations; cf.\ Eq.~\ref{eq:remaining_transpositions}.}
         Smaller $\bar{t}(S)$ means \emph{less} ambiguity (fewer viable tonics); larger $\bar{t}(S)$ means \emph{more} ambiguity.
     \end{itemize}
+
 
     \paragraph{Time‑aware variant (melodic draws).}
     If a passage contains $n$ notes drawn with repetition from $S$ of size $m$, let $P_k$ be the probability that these $n$ draws yield exactly $k$ \emph{distinct} pitch classes:
     \[
-        P_k \;=\; m^{-n}\, \Bigl\langle \genfrac{}{}{0pt}{}{n}{k} \Bigr\rangle \binom{m}{k}\, k!
+        P_k \;=\; m^{-n}\,\Stirling{n}{k}\,\binom{m}{k}\,k!
         \quad\text{(Stirling‑weighted; Eq.~\ref{eq:Pk}).}
     \]
     Then the expected information and its musical reading for an $n$‑note passage are
@@ -287,12 +281,15 @@
 
     \subsection*{Diagnostic combinations and cross‑set use}
     \begin{itemize}
-        \item \textbf{Diagnostic within a set.} A combination $X$ is \emph{diagnostic} for $S$ if $t_S(X)=1$ (i.e., it pins down the tonic/transposition). In the diatonic set, several trichords containing IC\,6 are diagnostic (see Table~\ref{tab:trichords} and Fig.~\ref{fig:cadential}).
+        \item \textbf{Diagnostic within a set.} A combination $X$ is \emph{diagnostic} for $S$ if $t_S(X)=1$ (i.e., it pins down the tonic/transposition).
+In the diatonic set, several trichords containing IC\,6 are diagnostic (see Table~\ref{tab:trichords} and Fig.~\ref{fig:cadential}).
         \item \textbf{Disambiguating between scale families.} For a family $\mathcal{F}$ of candidate sets (e.g., \{major, harmonic minor, melodic minor, pentatonic, whole‑tone, octatonic\}), define
         \[
-            t_{\mathcal{F}}(X) \;=\; \bigl|\{\,S\in\mathcal{F}:\exists\,\tau \text{ s.t. } X\subseteq \tau{+}S\,\}\bigr|
+            t_{\mathcal{F}}(X) \;=\; \bigl|\{\,S\in\mathcal{F}:\exists\,\tau \text{ s.t.
+} X\subseteq \tau{+}S\,\}\bigr|
         \]
-        and $D_{\mathcal{F}}(X)=\log_2\!\bigl(|\mathcal{F}|/t_{\mathcal{F}}(X)\bigr)$ as the \emph{disambiguation gain} (bits) of $X$ across sets. Tables~\ref{tab:comb-cardinality} and \ref{tab:avg-viable-sets} summarize typical values and useful heuristics.
+        and $D_{\mathcal{F}}(X)=\log_2\!\bigl(|\mathcal{F}|/t_{\mathcal{F}}(X)\bigr)$ as the \emph{disambiguation gain} (bits) of $X$ across sets.
+Tables~\ref{tab:comb-cardinality} and \ref{tab:avg-viable-sets} summarize typical values and useful heuristics.
     \end{itemize}
 
     \subsection*{Headline results (useful at a glance)}
@@ -305,7 +302,8 @@
 
     \subsection*{Practical ways to use the metric}
     \begin{enumerate}
-        \item \textbf{Analysis.} Given notes $X$ heard in context $S$, report $t_S(X)$ (how many tonics remain) and $I_S(X)$ in bits. Example: in the diatonic set, the dyad 01 leaves $t{=}2$ (about $2.58$ bits), while 05 often leaves $t{=}6$ (about $1$ bit).
+        \item \textbf{Analysis.} Given notes $X$ heard in context $S$, report $t_S(X)$ (how many tonics remain) and $I_S(X)$ in bits.
+Example: in the diatonic set, the dyad 01 leaves $t{=}2$ (about $2.58$ bits), while 05 often leaves $t{=}6$ (about $1$ bit).
         \item \textbf{Comparing scales.} Prefer sets with smaller $\bar{t}(S)$ for faster \emph{tonal induction}; prefer larger $\bar{t}(S)$ to \emph{sustain} tonal ambiguity.
         \item \textbf{Compositional design.} Use diagnostic combinations ($t{=}1$) to engineer cadential clarity; avoid them (or use high‑$t$ combinations) to prolong ambiguity.
         \item \textbf{Pedagogy / cognition.} $\bar{t}_n(S)$ offers a testable prediction for how quickly different sets yield stable tonic inferences as note evidence accrues.
@@ -321,7 +319,8 @@
 
     \section{Mathematical Development}\label{sec:math-dev}
 
-    \textit{The following sections provide detailed derivations and pedagogical exposition of the concepts introduced above. Readers seeking to understand the mathematical foundations or looking for a gentler introduction to information theory in musical contexts should continue here.}
+    \textit{The following sections provide detailed derivations and pedagogical exposition of the concepts introduced above.
+Readers seeking to understand the mathematical foundations or looking for a gentler introduction to information theory in musical contexts should continue here.}
 
 
     \subsection{A "bit" about Information Theory}
@@ -370,34 +369,25 @@
 
     In the diatonic set, two‑note combinations vary widely in the information they provide.
     \paragraph{Example.}
-    In the diatonic set with $c=12$, the dyad 05 (C–F) leaves the six candidate tonics
+    In 12‑EDO ($c=12$), the dyad 05 (C–F) leaves six candidate tonics
     $\{C,D\flat,E\flat,F,A\flat,B\flat\}$, so $t_S(X)=6$ and $I_S(X)=\log_2(12/6)=1$ bit.
     By contrast, the dyad 01 leaves $t_S(X)=2$ (e.g., $D\flat$ or $A\flat$ if $0{=}$C), i.e., $\approx 2.58$ bits.
 
-
-
     Formally, the information gained from a given note combination can be calculated as:
-
     \begin{equation}
-        I(E) = \log_{2} \left( \frac{c}{t} \right)
+        I_S(X) \;=\; \log_{2}\!\left(\frac{c}{t_S(X)}\right).
         \label{eq:derivingSelfInformation}
     \end{equation}
+    \footnote{Sketch: Let $T\in\mathbb{Z}_c$ be the (unknown) tonic with a uniform prior. Given a combination $X$, the surviving tonics form a set of size $t_S(X)$ and $T\mid X$ is uniform on it; hence $H(T)=\log_2 c$, $H(T\mid X)=\log_2 t_S(X)$, and the information gain is $I=H(T)-H(T\mid X)=\log_2(c/t_S(X))$. For non‑uniform priors, replace $c$ and $t_S(X)$ by $2^{H(T)}$ and $2^{H(T\mid X)}$.}
+    We measure information in bits (base‑2 logarithms). Put simply, $c$ is the size of the chromatic space (12 in 12‑EDO) and $t_S(X)$ is the number of candidate \emph{tonics} (i.e., tonic pitch classes) that remain possible given $X$.
 
-    Let $T$ be the (unknown) tonic, uniform on $c$ pitch classes, and let $X$ be the observed combination.
-    Then $H(T)=\log_2 c$, while the posterior $T\!\mid\!X$ is uniform on the surviving $t_S(X)$ tonics, so $H(T\!\mid\!X)=\log_2 t_S(X)$.
-    Hence, the information gained by $X$ is $I(T;X)=H(T)-H(T\!\mid\!X)=\log_2\!\bigl(c/t_S(X)\bigr)$, which is Eq.~\ref{eq:derivingSelfInformation}.
-
-    Put simply, $c$ is the size of the chromatic space (12 in 12‑EDO) and $t$ the number of candidate \emph{tonics} (i.e., tonic pitch classes) remaining.
-
-    Thus, 01 yields approximately 2.58 bits, while 05 yields 1 bit.
-    Conversely, the number of remaining transpositions can be recovered from bits of information as:
-
+    Thus, 01 yields approximately $2.58$ bits, while 05 yields $1$ bit. Conversely, the number of remaining tonics can be recovered from bits of information as
     \begin{equation}
-        t = \frac{c}{2^{I(E)}}
+        t_S(X) \;=\; \frac{c}{2^{\,I_S(X)}}.
         \label{eq:remaining_transpositions}
     \end{equation}
 
-    Table~\ref{tab:diatonic-2note} summarizes the information values for all two‑note combinations in the diatonic set, showing both the candidate transpositions and their associated probabilities based on the interval vector $\langle 2,5,4,3,6,1\rangle$.
+    Table~\ref{tab:diatonic-2note} summarizes the information values for all two‑note combinations in the diatonic set, showing both the number of candidate tonics and their associated probabilities based on the interval vector $\langle 2,5,4,3,6,1\rangle$.
 
     \input{tables/tab-diatonic-2note}
 
@@ -458,13 +448,7 @@
     Indeed, in this set, any 3‑note combination containing IC\,6 (a tritone) is a diagnostic combination.
     \begin{figure}[htbp]
         \centering
-        \IfFileExists{figures/cadential.png}{%
-            \includegraphics[width=\linewidth]{figures/cadential}%
-        }{%
-            \fbox{\parbox[c][0.6\linewidth][c]{0.95\linewidth}{\centering
-            Placeholder for \texttt{figures/example-figure.pdf}\\[3pt]
-            (replace with \texttt{\textbackslash includegraphics})}}
-        }
+        \includegraphics[width=\linewidth]{figures/cadential}%
         \caption{Diagnostic trichords of the diatonic set in cadential contexts.}
         \label{fig:cadential}
     \end{figure}
@@ -562,19 +546,20 @@
     \input{tables/tab-scale-ambiguity}
 
     \paragraph{Normalization across chromatic universes.}
-    For cross‑EDO comparisons (chromatic size $c$), we report a dimensionless pair:
+    For cross-EDO comparisons (chromatic size $c$), we report two dimensionless quantities:
     \[
-        \mathrm{NMI}(S) \;=\; \frac{\mathbb{E}_S[I]}{\log_2 c} \quad \text{(normalized information; higher = less ambiguous)}
+        \mathrm{NMI}(S) \coloneqq \frac{\mathbb{E}_S[I]}{\log_2 c}
     \]
-    and
+    \emph{(Normalized information; higher = less ambiguous.)}
     \[
-        \mathrm{NA}(S) \;=\; 1 - \mathrm{NMI}(S) \;=\; \frac{\log_2 \bar{t}(S)}{\log_2 c} \quad \text{(normalized ambiguity; higher = more ambiguous)}.
+        \mathrm{NA}(S) \coloneqq 1 - \mathrm{NMI}(S) = \frac{\log_2 \bar{t}(S)}{\log_2 c}
     \]
+    \emph{(Normalized ambiguity; higher = more ambiguous.)}
     These relate to the raw ambiguity via
     \[
-        \bar{t}(S) \;=\; c^{\,\mathrm{NA}(S)} \;=\; c^{\,1-\mathrm{NMI}(S)}, \qquad \mathrm{TAI}(S)=\bar{t}(S).
+        \bar{t}(S) = c^{\mathrm{NA}(S)} = c^{1-\mathrm{NMI}(S)}, \qquad \mathrm{TAI}(S)=\bar{t}(S).
     \]
-    In 12‑EDO, $\log_2 12 \approx 3.585$, so $\mathrm{NMI}\approx \mathbb{E}_S[I]/3.585$.
+    In 12-EDO, $\log_2 12 \approx 3.585$, so $\mathrm{NMI}\approx \mathbb{E}_S[I]/3.585$.
 
 
 
@@ -585,7 +570,8 @@
     To account for this, we can instead imagine constructing melodies by randomly drawing notes from a scale and then tallying the number of \textit{distinct} pitches in the result.
     Rather than averaging across all possible combinations in every cardinality, this approach focuses on the combinations most likely to occur, yielding a more nuanced and musically representative measure of ambiguity.
 
-    To illustrate, consider constructing an eight‑note melody from the C major scale, such as A–C–G–G–E–C–A–E. This melody consists of four distinct pitches: A, C, G, and E.
+    To illustrate, consider constructing an eight‑note melody from the C major scale, such as A–C–G–G–E–C–A–E.
+This melody consists of four distinct pitches: A, C, G, and E.
     Using the methods outlined previously, we can compute the self‑information provided by this specific subset.
     Hearing these notes reduces the space of possible transpositions from 12 to just three tonal interpretations: C major, F major, and G major.
     Of course, there is no guarantee that a random draw of eight notes would yield these particular four.
@@ -606,17 +592,17 @@
     For example, drawing $n = 8$ notes from the diatonic scale ($m = 7$) produces:
 
     \begin{align*}
-        P_1 &= 7^{-8} \, \left\langle \genfrac{}{}{0pt}{}{8}{1} \right\rangle \binom{7}{1} \cdot 1! \\
+        P_1 = 7^{-8} \, \Stirling{8}{1} \, \binom{7}{1} \cdot 1! \\
         &= 7^{-8} \cdot 1 \cdot 7 \cdot 1
-        = \frac{7}{5{,}764{,}801} \approx 0.000
+        \approx 0.000
     \end{align*}
 
     For two distinct notes:
 
     \begin{align*}
-        P_2 &= 7^{-8} \, \left\langle \genfrac{}{}{0pt}{}{8}{2} \right\rangle \binom{7}{2} \cdot 2! \\
+        P_2 = 7^{-8} \, \Stirling{8}{2} \, \binom{7}{2} \cdot 2! \\
         &= 7^{-8} \cdot 127 \cdot 21 \cdot 2
-        = \frac{5{,}334}{5{,}764{,}801} \approx 0.001
+        \approx 0.001
     \end{align*}
 
     And so on:
@@ -644,12 +630,7 @@
 
     \begin{figure*}[htbp]
         \centering
-        \IfFileExists{figures/transposition-probability.pdf}{%
-            \includegraphics[width=0.9\textwidth]{transposition-probability.pdf}%
-        }{%
-            \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
-            Full-width placeholder for \texttt{transposition-probability.pdf}}}
-        }
+        \includegraphics[width=0.9\textwidth]{transposition-probability.pdf}%
         \caption{The number of tonal interpretations available in common scales as a function of the number of notes drawn from them at random.
         The y‑axis represents the number of tonal interpretations available.
         The x‑axis refers to the number of draws.
@@ -665,12 +646,7 @@
 
     \begin{figure*}[htbp]
         \centering
-        \IfFileExists{figures/transposition-time.pdf}{%
-            \includegraphics[width=0.9\textwidth]{transposition-time.pdf}%
-        }{%
-            \fbox{\parbox[c][0.35\textwidth][c]{0.9\textwidth}{\centering
-            Full-width placeholder for \texttt{transposition-time.pdf}}}
-        }
+        \includegraphics[width=0.9\textwidth]{transposition-time.pdf}%
         \caption{All 5‑note sets in 12-EDO (twelve equal divisions of the octave) and the number of tonal interpretations they leave as a function of the number of notes drawn at random from the set.}
         \label{fig:time}
     \end{figure*}
@@ -736,7 +712,6 @@
     This comprehensive resource supports further application of the ambiguity measure and demonstrates its utility for music theory and analysis.
 
 % --- References (natbib) ---
-    \vfill\break
     \bibliographystyle{apalike}
     \bibliography{refs}
 
